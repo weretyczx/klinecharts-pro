@@ -42,6 +42,8 @@ interface PrevSymbolPeriod {
   period: Period
 }
 
+const KRANGE = 200
+
 function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStack?: boolean, paneOptions?: PaneOptions): Nullable<string> {
   if (indicatorName === 'VOL') {
     paneOptions = { gap: { bottom: 2 }, ...paneOptions }
@@ -248,7 +250,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       const get = async () => {
         const p = period()
         const [to] = adjustFromTo(p, timestamp!, 1)
-        const [from] = adjustFromTo(p, to, 500)
+        const [from] = adjustFromTo(p, to, KRANGE)
         const kLineDataList = await props.datafeed.getHistoryKLineData(symbol(), p, from, to)
         widget?.applyMoreData(kLineDataList, kLineDataList.length > 0)
         loading = false
@@ -318,7 +320,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       loading = true
       setLoadingVisible(true)
       const get = async () => {
-        const [from, to] = adjustFromTo(p, new Date().getTime(), 500)
+        const [from, to] = adjustFromTo(p, new Date().getTime(), KRANGE)
         const kLineDataList = await props.datafeed.getHistoryKLineData(s, p, from, to)
         widget?.applyNewData(kLineDataList, kLineDataList.length > 0)
         props.datafeed.subscribe(s, p, data => {
@@ -537,7 +539,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
           try {
             await startTransition(() => setDrawingBarVisible(!drawingBarVisible()))
             widget?.resize()
-          } catch (e) {}    
+          } catch (e) {}
         }}
         onSymbolClick={() => { setSymbolSearchModalVisible(!symbolSearchModalVisible()) }}
         onPeriodChange={setPeriod}
