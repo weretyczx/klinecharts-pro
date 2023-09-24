@@ -3,8 +3,10 @@
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 
+
 export default defineConfig({
   plugins: [solidPlugin()],
+
   build: {
     cssTarget: 'chrome61',
     sourcemap: true,
