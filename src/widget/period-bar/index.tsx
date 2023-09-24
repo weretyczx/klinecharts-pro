@@ -38,7 +38,7 @@ const PeriodBar: Component<PeriodBarProps> = props => {
 
   const [fullScreen, setFullScreen] = createSignal(false)
   const [isMobile, setIsMobile] = createSignal(false)
-  const [isOpenPeriod, setIsOpenPeriod] = createSignal(true)
+  const [isOpenPeriod, setIsOpenPeriod] = createSignal(false)
 
   const fullScreenChange = () => {
     setFullScreen(full => !full)
@@ -46,8 +46,6 @@ const PeriodBar: Component<PeriodBarProps> = props => {
 
   const resizeScreen = () => {
     const chart = document.getElementsByClassName('klinecharts-pro')[0]
-    // console.log(chart.clientWidth)
-
     if (chart.clientWidth < 720) {
       setIsMobile(true)
     } else {
