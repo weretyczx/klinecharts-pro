@@ -73,7 +73,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   let priceUnitDom: HTMLElement
 
   let loading = false
-  console.log('krange', props.krange)
+  // console.log('krange', props.krange)
 
   const [theme, setTheme] = createSignal(props.theme)
   const [styles, setStyles] = createSignal(props.styles)
