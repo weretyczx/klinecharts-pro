@@ -250,7 +250,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
         const p = period()
         const [to] = adjustFromTo(p, timestamp!, 1)
         const [from] = adjustFromTo(p, to, props.krange)
-        const kLineDataList = await props.datafeed.getHistoryKLineData(symbol(), p, from, to)
+        const kLineDataList = await props.datafeed.getHistoryKLineData(symbol(), p, from, to, props.krange)
         widget?.applyMoreData(kLineDataList, kLineDataList.length > 0)
         loading = false
       }
@@ -320,7 +320,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       setLoadingVisible(true)
       const get = async () => {
         const [from, to] = adjustFromTo(p, new Date().getTime(), props.krange)
-        const kLineDataList = await props.datafeed.getHistoryKLineData(s, p, from, to)
+        const kLineDataList = await props.datafeed.getHistoryKLineData(s, p, from, to, props.krange)
         widget?.applyNewData(kLineDataList, kLineDataList.length > 0)
         props.datafeed.subscribe(s, p, data => {
           widget?.updateData(data)
