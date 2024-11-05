@@ -42,7 +42,6 @@ interface PrevSymbolPeriod {
   period: Period
 }
 
-const KRANGE = 200
 
 function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStack?: boolean, paneOptions?: PaneOptions): Nullable<string> {
   if (indicatorName === 'VOL') {
@@ -250,7 +249,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       const get = async () => {
         const p = period()
         const [to] = adjustFromTo(p, timestamp!, 1)
-        const [from] = adjustFromTo(p, to, KRANGE)
+        const [from] = adjustFromTo(p, to, props.krange)
         const kLineDataList = await props.datafeed.getHistoryKLineData(symbol(), p, from, to)
         widget?.applyMoreData(kLineDataList, kLineDataList.length > 0)
         loading = false
@@ -320,7 +319,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       loading = true
       setLoadingVisible(true)
       const get = async () => {
-        const [from, to] = adjustFromTo(p, new Date().getTime(), KRANGE)
+        const [from, to] = adjustFromTo(p, new Date().getTime(), props.krange)
         const kLineDataList = await props.datafeed.getHistoryKLineData(s, p, from, to)
         widget?.applyNewData(kLineDataList, kLineDataList.length > 0)
         props.datafeed.subscribe(s, p, data => {

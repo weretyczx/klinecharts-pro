@@ -55,7 +55,8 @@ export interface ChartProOptions {
   timezone?: string
   mainIndicators?: string[]
   subIndicators?: string[]
-  datafeed: Datafeed
+  datafeed: Datafeed,
+  krange?: number
 }
 
 export interface ChartPro {
